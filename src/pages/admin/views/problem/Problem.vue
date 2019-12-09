@@ -1,6 +1,6 @@
 <template>
   <div class="problem">
-
+    
     <Panel :title="title">
       <el-form ref="form" :model="problem" :rules="rules" label-position="top" label-width="70px">
         <el-row :gutter="20">
@@ -11,48 +11,8 @@
             </el-form-item>
           </el-col>
           <el-col :span="18">
-            <el-form-item prop="title" :label="$t('m.Title')" required>
+            <el-form-item prop="title" :label="$t('m.Title')" :required="this.fixtitlerequired">
               <el-input :placeholder="$t('m.Title')" v-model="problem.title"></el-input>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="24">
-            <el-form-item prop="description" :label="$t('m.Description')" required>
-              <Simditor v-model="problem.description"></Simditor>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="24">
-            <el-form-item prop="input_description" :label="$t('m.Input_Description')" required>
-              <Simditor v-model="problem.input_description"></Simditor>
-            </el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item prop="output_description" :label="$t('m.Output_Description')" required>
-              <Simditor v-model="problem.output_description"></Simditor>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="8">
-            <el-form-item :label="$t('m.Time_Limit') + ' (ms)' " required>
-              <el-input type="Number" :placeholder="$t('m.Time_Limit')" v-model="problem.time_limit"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item :label="$t('m.Memory_limit') + ' (MB)' " required>
-              <el-input type="Number" :placeholder="$t('m.Memory_limit')" v-model="problem.memory_limit"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
-            <el-form-item :label="$t('m.Difficulty')">
-              <el-select class="difficulty-select" size="small" :placeholder="$t('m.Difficulty')" v-model="problem.difficulty">
-                <el-option :label="$t('m.Low')" value="Low"></el-option>
-                <el-option :label="$t('m.Mid')" value="Mid"></el-option>
-                <el-option :label="$t('m.High')" value="High"></el-option>
-              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -89,16 +49,14 @@
               </span>
               <el-autocomplete
                 v-if="inputVisible"
-                size="mini"
+                size="small"
                 class="input-new-tag"
                 v-model="tagInput"
-                :trigger-on-focus="false"
                 @keyup.enter.native="addTag"
-                @blur="addTag"
                 @select="addTag"
                 :fetch-suggestions="querySearch">
               </el-autocomplete>
-              <el-button class="button-new-tag" v-else size="small" @click="inputVisible = true">+ {{$t('m.New_Tag')}}</el-button>
+              <el-button class="button-new-tag" v-else size="medium" @click="inputVisible = true">+ {{$t('m.New_Tag')}}</el-button>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -112,11 +70,55 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-row :gutter="20">
+          <el-col :span="8">
+            <el-form-item :label="$t('m.Time_Limit') + ' (ms)' " required>
+              <el-input type="Number" :placeholder="$t('m.Time_Limit')" v-model="problem.time_limit"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item :label="$t('m.Memory_limit') + ' (MB)' " required>
+              <el-input type="Number" :placeholder="$t('m.Memory_limit')" v-model="problem.memory_limit"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item :label="$t('m.Difficulty')">
+              <el-select class="difficulty-select" size="small" :placeholder="$t('m.Difficulty')" v-model="problem.difficulty">
+                <el-option :label="$t('m.Low')" value="Low"></el-option>
+                <el-option :label="$t('m.Mid')" value="Mid"></el-option>
+                <el-option :label="$t('m.High')" value="High"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="24">
+            <el-form-item prop="description" :label="$t('m.Description')" required>
+              <Simditor v-model="problem.description"></Simditor>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item prop="input_description" :label="$t('m.Input_Description')" required>
+              <Simditor v-model="problem.input_description"></Simditor>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item prop="output_description" :label="$t('m.Output_Description')" required>
+              <Simditor v-model="problem.output_description"></Simditor>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-form-item style="margin-top: 20px" :label="$t('m.Hint')">
+          <Simditor v-model="problem.hint" placeholder=""></Simditor>
+        </el-form-item>
         <div>
           <el-form-item v-for="(sample, index) in problem.samples" :key="'sample'+index">
-            <Accordion :title="'Sample' + (index + 1)">
+            <Accordion :title="$t('m.Sample') + (index + 1)">
               <el-button type="warning" size="small" icon="el-icon-delete" slot="header" @click="deleteSample(index)">
-                Delete
+                {{$t('m.Delete')}}
               </el-button>
               <el-row :gutter="20">
                 <el-col :span="12">
@@ -147,21 +149,6 @@
           <button type="button" class="add-samples" @click="addSample()"><i class="el-icon-plus"></i>{{$t('m.Add_Sample')}}
           </button>
         </div>
-        <el-form-item style="margin-top: 20px" :label="$t('m.Hint')">
-          <Simditor v-model="problem.hint" placeholder=""></Simditor>
-        </el-form-item>
-        <el-form-item :label="$t('m.Code_Template')">
-          <el-row>
-            <el-col :span="24" v-for="(v, k) in template" :key="'template'+k">
-              <el-form-item>
-                <el-checkbox v-model="v.checked">{{ k }}</el-checkbox>
-                <div v-if="v.checked">
-                  <code-mirror v-model="v.code" :mode="v.mode"></code-mirror>
-                </div>
-              </el-form-item>
-            </el-col>
-          </el-row>
-        </el-form-item>
         <el-form-item :label="$t('m.Special_Judge')" :error="error.spj">
           <el-col :span="24">
             <el-checkbox v-model="problem.spj" @click.native.prevent="switchSpj()">{{$t('m.Use_Special_Judge')}}</el-checkbox>
@@ -255,9 +242,20 @@
             </el-table>
           </el-col>
         </el-row>
-
         <el-form-item :label="$t('m.Source')">
           <el-input :placeholder="$t('m.Source')" v-model="problem.source"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('m.Code_Template')">
+          <el-row>
+            <el-col :span="24" v-for="(v, k) in template" :key="'template'+k">
+              <el-form-item>
+                <el-checkbox v-model="v.checked">{{ k }}</el-checkbox>
+                <div v-if="v.checked">
+                  <code-mirror v-model="v.code" :mode="v.mode"></code-mirror>
+                </div>
+              </el-form-item>
+            </el-col>
+          </el-row>
         </el-form-item>
         <save @click.native="submit()">Save</save>
       </el-form>
@@ -281,10 +279,10 @@
     data () {
       return {
         rules: {
-          _id: {required: true, message: 'Display ID is required', trigger: 'blur'},
-          title: {required: true, message: 'Title is required', trigger: 'blur'},
-          input_description: {required: true, message: 'Input Description is required', trigger: 'blur'},
-          output_description: {required: true, message: 'Output Description is required', trigger: 'blur'}
+          _id: {required: true, message: this.$i18n.t('m.DisplayIDisrequired'), trigger: 'blur'},
+          title: {required: true, message: this.$i18n.t('m.Titleisrequired'), trigger: 'blur'},
+          input_description: {required: true, message: this.$i18n.t('m.InputDescriptionisrequired'), trigger: 'blur'},
+          output_description: {required: true, message: this.$i18n.t('m.OutputDescriptionisrequired'), trigger: 'blur'}
         },
         loadingCompile: false,
         mode: '',
@@ -343,7 +341,7 @@
           spj_compile_ok: false,
           test_case_id: '',
           test_case_score: [],
-          rule_type: 'ACM',
+          rule_type: 'OI',
           hint: '',
           source: '',
           io_mode: {'io_mode': 'Standard IO', 'input': 'input.txt', 'output': 'output.txt'}
@@ -358,11 +356,10 @@
           })
         }
 
-        this.problem.spj_language = 'C'
+        this.problem.spj_language = 'C++'
 
         let allLanguage = res.data.data
         this.allLanguage = allLanguage
-
         // get problem after getting languages list to avoid find undefined value in `watch problem.languages`
         if (this.mode === 'edit') {
           this.title = this.$i18n.t('m.Edit_Problem')
@@ -413,6 +410,14 @@
         this.spjMode = this.allLanguage.spj_languages.find(item => {
           return item.name === this.problem.spj_language
         }).content_type
+      },
+      // 避免触发自带的验证出现"title is required”
+      fixtitlerequired (val) {
+        this.$nextTick(() => {
+          if (val !== '1') {
+            this.$refs.form.validateField('title')
+          }
+        })
       }
     },
     methods: {
@@ -435,7 +440,9 @@
         api.getProblemTagList().then(res => {
           let tagList = []
           for (let tag of res.data.data) {
-            tagList.push({value: tag.name})
+            if (tag.name.toLowerCase().indexOf(queryString.toLowerCase()) === 0) {
+              tagList.push({value: tag.name})
+            }
           }
           cb(tagList)
         }).catch(() => {
@@ -480,7 +487,7 @@
         this.problem.test_case_id = response.data.id
       },
       uploadFailed () {
-        this.$error('Upload failed')
+        this.$error(this.$i18n.t('m.Uploadfailed'))
       },
       compileSPJ () {
         let data = {
@@ -498,7 +505,7 @@
           this.problem.spj_compile_ok = false
           const h = this.$createElement
           this.$msgbox({
-            title: 'Compile Error',
+            title: this.$i18n.t('m.CompileError'),
             type: 'error',
             message: h('pre', err.data.data),
             showCancelButton: false,
@@ -509,26 +516,26 @@
       },
       submit () {
         if (!this.problem.samples.length) {
-          this.$error('Sample is required')
+          this.$error(this.$i18n.t('m.Sampleisrequired'))
           return
         }
         for (let sample of this.problem.samples) {
           if (!sample.input || !sample.output) {
-            this.$error('Sample input and output is required')
+            this.$error(this.$i18n.t('m.Sampleinputandoutputisrequired'))
             return
           }
         }
         if (!this.problem.tags.length) {
-          this.error.tags = 'Please add at least one tag'
+          this.error.tags = this.$i18n.t('m.Pleaseaddatleastonetag')
           this.$error(this.error.tags)
           return
         }
         if (this.problem.spj) {
           if (!this.problem.spj_code) {
-            this.error.spj = 'Spj code is required'
+            this.error.spj = this.$i18n.t('m.Spjcodeisrequired')
             this.$error(this.error.spj)
           } else if (!this.problem.spj_compile_ok) {
-            this.error.spj = 'SPJ code has not been successfully compiled'
+            this.error.spj = this.$i18n.t('m.SPJcodehasnotbeensuccessfullycompiled')
           }
           if (this.error.spj) {
             this.$error(this.error.spj)
@@ -536,12 +543,12 @@
           }
         }
         if (!this.problem.languages.length) {
-          this.error.languages = 'Please choose at least one language for problem'
+          this.error.languages = this.$i18n.t('m.Pleasechooseatleastonelanguageforproblem')
           this.$error(this.error.languages)
           return
         }
         if (!this.testCaseUploaded) {
-          this.error.testCase = 'Test case is not uploaded yet'
+          this.error.testCase = this.$i18n.t('m.Testcaseisnotuploadedyet')
           this.$error(this.error.testCase)
           return
         }
@@ -549,11 +556,11 @@
           for (let item of this.problem.test_case_score) {
             try {
               if (parseInt(item.score) <= 0) {
-                this.$error('Invalid test case score')
+                this.$error(this.$i18n.t('m.Invalidtestcasescore'))
                 return
               }
             } catch (e) {
-              this.$error('Test case score must be an integer')
+              this.$error(this.$i18n.t('m.Testcasescoremustbeaninteger'))
               return
             }
           }
@@ -600,10 +607,10 @@
       }
     }
     .input-new-tag {
-      width: 78px;
+      width: 150px;
     }
     .button-new-tag {
-      height: 24px;
+      height: 32px;
       line-height: 22px;
       padding-top: 0;
       padding-bottom: 0;
