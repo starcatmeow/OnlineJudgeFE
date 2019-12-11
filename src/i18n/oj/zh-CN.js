@@ -1,5 +1,5 @@
 export const m = {
-    // 404.vue
+  // 404.vue
   Go_Home: '返回主页',
   // Problem.vue
   Description: '题目描述',
@@ -138,9 +138,9 @@ export const m = {
   Theme: '主题',
   Reset_to_default_code_definition: '重设返回默认代码设置',
   Upload_file: '上传文件',
-  Monokai: '物界',
-  Solarized_Light: '日光灯',
-  Material: '材料',
+  Monokai: 'Monokai',
+  Solarized_Light: 'Solarized Light',
+  Material: 'Material',
   // KatexEditor.vue
   Latex_Editor: 'Latex 编辑器',
   // NavBar.vue
