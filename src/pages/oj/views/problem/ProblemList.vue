@@ -91,7 +91,7 @@
           {
             title: '#',
             key: '_id',
-            width: 80,
+            width: 140,
             render: (h, params) => {
               return h('Button', {
                 props: {
@@ -111,7 +111,6 @@
           },
           {
             title: this.$i18n.t('m.Title'),
-            width: 400,
             render: (h, params) => {
               return h('Button', {
                 props: {
@@ -126,14 +125,14 @@
                 style: {
                   padding: '2px 0',
                   overflowX: 'auto',
-                  textAlign: 'left',
-                  width: '100%'
+                  textAlign: 'left'
                 }
               }, params.row.title)
             }
           },
           {
             title: this.$i18n.t('m.Level'),
+            width: 70,
             render: (h, params) => {
               let t = params.row.difficulty
               let color = 'blue'
@@ -148,10 +147,12 @@
           },
           {
             title: this.$i18n.t('m.Total'),
+            width: 100,
             key: 'submission_number'
           },
           {
             title: this.$i18n.t('m.AC_Rate'),
+            width: 90,
             render: (h, params) => {
               return h('span', this.getACRate(params.row.accepted_number, params.row.submission_number))
             }
@@ -239,6 +240,7 @@
           this.problemTableColumns.push(
             {
               title: this.$i18n.t('m.Tags'),
+              width: 100,
               align: 'center',
               render: (h, params) => {
                 let tags = []

@@ -1,5 +1,6 @@
 <template>
-  <mavon-editor :subfield=false
+  <mavon-editor id="md"
+                :subfield=false
                 defaultOpen="preview"
                 :editable=false
                 :toolbarsFlag=false

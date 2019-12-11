@@ -18,6 +18,7 @@
                   <span id="countdown">{{countdown}}</span>
                 </Tag>
               </div>
+              <Table :columns="columns" :data="contest_table" disabled-hover style="margin-bottom: 40px;"></Table>
               <MarkdownReader v-model="contest.description"></MarkdownReader>
               <div v-if="passwordFormVisible" class="contest-password">
                 <Input v-model="contestPassword" type="password"
@@ -26,7 +27,6 @@
                 <Button type="info" @click="checkPassword">Enter</Button>
               </div>
             </Panel>
-            <Table :columns="columns" :data="contest_table" disabled-hover style="margin-bottom: 40px;"></Table>
           </div>
         </template>
       </div>

@@ -3,7 +3,8 @@
     <div id="problem-main">
       <!--problem main-->
       <Panel :padding="40" shadow>
-        <div slot="title">{{problem.title}}</div>
+        <div slot="title">{{problem._id}} {{problem.title}}</div>
+        <br/>
         <div id="problem-content" class="markdown-body" v-katex>
           <p class="title">{{$t('m.Description')}}</p>
           <MarkdownReader v-model="problem.description"></MarkdownReader>
@@ -137,8 +138,6 @@
           <span class="card-title">{{$t('m.Information')}}</span>
         </div>
         <ul>
-          <li><p>ID</p>
-            <p>{{problem._id}}</p></li>
           <li>
             <p>{{$t('m.Time_Limit')}}</p>
             <p>{{problem.time_limit}}MS</p></li>

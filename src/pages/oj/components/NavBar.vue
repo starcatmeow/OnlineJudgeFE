@@ -129,7 +129,7 @@
 
 <style lang="less" scoped>
   #header {
-    min-width: 1100px;
+    min-width: 995px;
     position: fixed;
     top: 0;
     left: 0;
