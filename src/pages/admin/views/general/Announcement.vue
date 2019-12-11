@@ -81,7 +81,7 @@
           </el-input>
         </el-form-item>
         <el-form-item :label="$t('m.Announcement_Content')" required>
-          <Simditor v-model="announcement.content"></Simditor>
+          <MavonEditor v-model="announcement.content"></MavonEditor>
         </el-form-item>
         <div class="visible-box">
           <span>{{$t('m.Announcement_visible')}}</span>
@@ -101,13 +101,13 @@
 </template>
 
 <script>
-  import Simditor from '../../components/Simditor.vue'
+  import MavonEditor from '../../components/MavonEditor.vue'
   import api from '../../api.js'
 
   export default {
     name: 'Announcement',
     components: {
-      Simditor
+      MavonEditor
     },
     data () {
       return {

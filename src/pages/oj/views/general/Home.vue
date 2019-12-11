@@ -20,7 +20,7 @@
               </Button>
             </div>
             <div class="contest-content-description">
-              <blockquote v-html="contest.description"></blockquote>
+              <MarkdownReader v-model="contest.description"></MarkdownReader>
             </div>
           </div>
         </CarouselItem>
@@ -36,11 +36,13 @@
   import api from '@oj/api'
   import time from '@/utils/time'
   import { CONTEST_STATUS } from '@/utils/constants'
+  import MarkdownReader from '../../components/MarkdownReader'
 
   export default {
     name: 'home',
     components: {
-      Announcements
+      Announcements,
+      MarkdownReader
     },
     data () {
       return {
@@ -84,5 +86,10 @@
 
   .announcement {
     margin-top: 20px;
+  }
+  
+  .v-note-wrapper{
+    max-height: 300px;
+    z-index: 500;
   }
 </style>

@@ -6,13 +6,13 @@
         <div slot="title">{{problem.title}}</div>
         <div id="problem-content" class="markdown-body" v-katex>
           <p class="title">{{$t('m.Description')}}</p>
-          <p class="content" v-html=problem.description></p>
+          <MarkdownReader v-model="problem.description"></MarkdownReader>
           <!-- {{$t('m.music')}} -->
           <p class="title">{{$t('m.Input')}} <span v-if="problem.io_mode.io_mode=='File IO'">({{$t('m.FromFile')}}: {{ problem.io_mode.input }})</span></p>
-          <p class="content" v-html=problem.input_description></p>
+          <MarkdownReader v-model="problem.input_description"></MarkdownReader>
 
           <p class="title">{{$t('m.Output')}} <span v-if="problem.io_mode.io_mode=='File IO'">({{$t('m.ToFile')}}: {{ problem.io_mode.output }})</span></p>
-          <p class="content" v-html=problem.output_description></p>
+          <MarkdownReader v-model="problem.output_description"></MarkdownReader>
 
           <div v-for="(sample, index) of problem.samples" :key="index">
             <div class="flex-container sample">
@@ -36,9 +36,7 @@
 
           <div v-if="problem.hint">
             <p class="title">{{$t('m.Hint')}}</p>
-            <Card dis-hover>
-              <div class="content" v-html=problem.hint></div>
-            </Card>
+            <MarkdownReader v-model="problem.input_description"></MarkdownReader>
           </div>
 
           <div v-if="problem.source">
@@ -208,6 +206,7 @@
   import {JUDGE_STATUS, CONTEST_STATUS, buildProblemCodeKey} from '@/utils/constants'
   import api from '@oj/api'
   import {pie, largePie} from './chartData'
+  import MarkdownReader from '../../components/MarkdownReader'
 
   // 只显示这些状态的图形占用
   const filtedStatus = ['-1', '-2', '0', '1', '2', '3', '4', '8']
@@ -215,7 +214,8 @@
   export default {
     name: 'Problem',
     components: {
-      CodeMirror
+      CodeMirror,
+      MarkdownReader
     },
     mixins: [FormMixin],
     data () {

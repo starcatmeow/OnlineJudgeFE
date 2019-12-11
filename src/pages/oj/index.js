@@ -32,6 +32,8 @@ import 'echarts/lib/component/legend'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/toolbox'
 import 'echarts/lib/component/markPoint'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 
 // register global utility filters.
 Object.keys(filters).forEach(key => {
@@ -48,6 +50,7 @@ Vue.use(VueAnalytics, {
   id: GOOGLE_ANALYTICS_ID,
   router
 })
+Vue.use(mavonEditor)
 
 Vue.component('ECharts', ECharts)
 Vue.component(VerticalMenu.name, VerticalMenu)
@@ -61,5 +64,10 @@ Vue.prototype.$Message.config({
 Vue.prototype.$error = (s) => Vue.prototype.$Message.error(s)
 Vue.prototype.$info = (s) => Vue.prototype.$Message.info(s)
 Vue.prototype.$success = (s) => Vue.prototype.$Message.success(s)
+
+// configure mavon-editor
+mavonEditor.markdownIt.set({
+  html: false
+})
 
 new Vue(Vue.util.extend({router, store, i18n}, App)).$mount('#app')

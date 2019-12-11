@@ -18,7 +18,7 @@
                   <span id="countdown">{{countdown}}</span>
                 </Tag>
               </div>
-              <div v-html="contest.description" class="markdown-body"></div>
+              <MarkdownReader v-model="contest.description"></MarkdownReader>
               <div v-if="passwordFormVisible" class="contest-password">
                 <Input v-model="contestPassword" type="password"
                        placeholder="contest password" class="contest-password-input"
@@ -82,10 +82,13 @@
   import { types } from '@/store'
   import { CONTEST_STATUS_REVERSE, CONTEST_STATUS } from '@/utils/constants'
   import time from '@/utils/time'
+  import MarkdownReader from '../../components/MarkdownReader'
 
   export default {
     name: 'ContestDetail',
-    components: {},
+    components: {
+      MarkdownReader
+    },
     data () {
       return {
         CONTEST_STATUS: CONTEST_STATUS,

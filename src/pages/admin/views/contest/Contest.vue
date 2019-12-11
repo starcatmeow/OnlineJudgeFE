@@ -10,7 +10,7 @@
           </el-col>
           <el-col :span="24">
             <el-form-item :label="$t('m.ContestDescription')" required>
-              <Simditor v-model="contest.description"></Simditor>
+              <MavonEditor v-model="contest.description"></MavonEditor>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -84,12 +84,12 @@
 
 <script>
   import api from '../../api.js'
-  import Simditor from '../../components/Simditor.vue'
+  import MavonEditor from '../../components/MavonEditor.vue'
 
   export default {
     name: 'CreateContest',
     components: {
-      Simditor
+      MavonEditor
     },
     data () {
       return {

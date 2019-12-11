@@ -18,6 +18,8 @@ import IconBtn from './components/btn/IconBtn.vue'
 import Save from './components/btn/Save.vue'
 import Cancel from './components/btn/Cancel.vue'
 import './style.less'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 
 // register global utility filters.
 Object.keys(filters).forEach(key => {
@@ -30,6 +32,7 @@ Vue.use(VueAnalytics, {
 })
 Vue.use(Element, {locale})
 Vue.use(katex)
+Vue.use(mavonEditor)
 Vue.component(IconBtn.name, IconBtn)
 Vue.component(Panel.name, Panel)
 Vue.component(Save.name, Save)
@@ -54,5 +57,10 @@ Vue.prototype.$success = (msg) => {
     Vue.prototype.$message({'message': msg, 'type': 'success'})
   }
 }
+
+// configure mavon-editor
+mavonEditor.markdownIt.set({
+  html: false
+})
 
 new Vue(Vue.util.extend({router, store, i18n}, App)).$mount('#app')

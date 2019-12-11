@@ -32,7 +32,7 @@
       </template>
 
       <template v-else>
-        <div v-katex v-html="announcement.content" key="content" class="content-container markdown-body"></div>
+        <MarkdownReader v-model="announcement.content" key="content"></MarkdownReader>
       </template>
     </transition-group>
   </Panel>
@@ -41,11 +41,13 @@
 <script>
   import api from '@oj/api'
   import Pagination from '@oj/components/Pagination'
+  import MarkdownReader from '../../components/MarkdownReader'
 
   export default {
     name: 'Announcement',
     components: {
-      Pagination
+      Pagination,
+      MarkdownReader
     },
     data () {
       return {

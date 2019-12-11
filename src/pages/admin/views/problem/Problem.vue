@@ -94,25 +94,25 @@
         <el-row :gutter="20">
           <el-col :span="24">
             <el-form-item prop="description" :label="$t('m.Description')" required>
-              <Simditor v-model="problem.description"></Simditor>
+              <MavonEditor v-model="problem.description"></MavonEditor>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item prop="input_description" :label="$t('m.Input_Description')" required>
-              <Simditor v-model="problem.input_description"></Simditor>
+              <MavonEditor v-model="problem.input_description"></MavonEditor>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item prop="output_description" :label="$t('m.Output_Description')" required>
-              <Simditor v-model="problem.output_description"></Simditor>
+              <MavonEditor v-model="problem.output_description"></MavonEditor>
             </el-form-item>
           </el-col>
         </el-row>
 
         <el-form-item style="margin-top: 20px" :label="$t('m.Hint')">
-          <Simditor v-model="problem.hint" placeholder=""></Simditor>
+          <MavonEditor v-model="problem.hint" placeholder=""></MavonEditor>
         </el-form-item>
         <div>
           <el-form-item v-for="(sample, index) in problem.samples" :key="'sample'+index">
@@ -264,7 +264,7 @@
 </template>
 
 <script>
-  import Simditor from '../../components/Simditor'
+  import MavonEditor from '../../components/MavonEditor'
   import Accordion from '../../components/Accordion'
   import CodeMirror from '../../components/CodeMirror'
   import api from '../../api'
@@ -272,7 +272,7 @@
   export default {
     name: 'Problem',
     components: {
-      Simditor,
+      MavonEditor,
       Accordion,
       CodeMirror
     },
@@ -309,7 +309,8 @@
           spj: '',
           languages: '',
           testCase: ''
-        }
+        },
+        fixtitlerequired: false
       }
     },
     mounted () {
@@ -412,7 +413,7 @@
         }).content_type
       },
       // 避免触发自带的验证出现"title is required”
-      fixtitlerequired (val) {
+      'fixtitlerequired' (val) {
         this.$nextTick(() => {
           if (val !== '1') {
             this.$refs.form.validateField('title')
