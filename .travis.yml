@@ -1,41 +1,35 @@
 language: node_js
 node_js:
-  - 8.12.0
+- 8.12.0
 sudo: required
 services:
-  - docker
+- docker
 env:
   global:
-    - CXX=g++-4.8
+  - CXX=g++-4.8
   matrix:
-    - USE_SENTRY=1
-#    - USE_SENTRY=0
+  - USE_SENTRY=1
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
+    - g++-4.8
 before_install:
-  - docker pull getsentry/sentry-cli
-
+- docker pull getsentry/sentry-cli
 script:
-  - npm install
-  - npm run build:dll
-  - npm run build
-
+- npm install
+- npm run build:dll
+- npm run build
 before_deploy:
-  - bash deploy/sentry_release.sh
-  - find dist/ -type f -name "*.map" -delete
-  - zip -r dist.zip dist
-
+- bash deploy/sentry_release.sh
+- find dist/ -type f -name "*.map" -delete
+- zip -r dist.zip dist
 deploy:
   provider: releases
-  skip_cleanup: true
   api_key:
-    secure: IJ2aUzxLAZyriIVRFXNmJ9mtmoGjzIOQFKaG9pCFjSSiS+qrKwt7AthC9qVvh+oxcF1okGZ0fcWpK9P138NIcZMsHWwyTpB2yPXFCsZ8xzK509bf2F/uaohg8zm5Nc5xrmY54El11cTapbPajVpXqPY500ZT2TDb+C072IGKzdOEG4M0eLdpYG8YQhzU00oWu1ufkk0tiuc/PYPhIdUbzS9sGPSCnsZLVzIYhZZG5pTfNjGT5BiK3zBdaMdbrhVsZjM0HDY5NcNVZ0NbrACFX3NZ0pKM3BCde4BoC+YLh8nJJaKdpzMy41PTmj2EnszHUydauw6e6cxneue20wCw3Kf6lbzdCgTLIZup/s1IMdz3g8h6bL171kBp67BHu8CxXC/L4jaV0U74wJcjGrimWbhUVj3mimv4YT8NZ5rcwbVz9gfY2p6ah064driB+BM2KF8LWnOjLA1q9Q3acsmBLqNRKYGYa5T2SQ/WdhVb1Qn5UYOp2fdXIuw6c2Ph4w7KwKsrSYk+2HZ2L9+ZL+wRRlLdNPRZ4Vm/WXmhLG7jRm4TT84MbAIqdBbHvvNSPEGip8YCnTRYU0bi1oyBujkq4u5FatgegohsTXcY9Vk+Olb6wnvbRDnBjVNn5IZ80b5wRft9fauCYCBGTMYOoL6XLAE+/0pSKyquPr89K6nN4Bc=
+    secure: HXkliap9naHHiDRDPPEDyD5N/Dr+v2xWua8kmVFnEVxs2Y+sPtB7ZqXd1Y/jQ5nnf0YEFzogArxCGwl6ydwHWv25vb+57xS48qThNmjvqO/CbGMbyWcg7aCR9kO+ZYKZQ7A6JRHFNqm/kjB3uJtKuWzbrkA74MqIsPC/8zP7ryU4wK3fmQdun5UGGmTTqv2D6ZTEdybwj4f5jxoJ+12L+H3OtGRhIaSVH1pGTMqK1PUZilurU7WAkx73XTkRccarXOY4hKzibeB5XJvVPFRye7LNFIQ/gZYdPMrMNaasBW6CiqHsNzCH9OUrir+2NFoJz7XT5gBR3rlUOtVVsLKU7rXIw0CJA0h75fvbhmZCyucvV0tvzZB7XIMwJO3TqS8rvkz0Fk+viShZ1q907DbnWaBaP2eARpBc0EMCrH+uvM+zzEA6a3A4Qee2wIEfJX7HVdi+fT/f5HwExd7jphgyWgP9zj7FtUqhG5ax6TJUkdxqZhKYBXi10zHFwUKH4Mw3ATRraN707VC5yMpTk1EvHPeEwL8c8+66SX70mtts1B6DxJtTCTtG8MulSOUMCDBmekrM6nKgloxkeDieIisGzaKT9zMfKIaG4HcOTgUEtZCio3l3ZODeF326ZyhkgIVaCeN9HtlMyFgCWi2Gu1TEaN2vmz8C7O+UQrS1f3dIMlU=
   file: dist.zip
   on:
     repo: starcatmeow/OnlineJudgeFE
-    all_branches: true
     tags: true
