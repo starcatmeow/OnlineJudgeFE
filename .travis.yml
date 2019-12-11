@@ -27,8 +27,11 @@ before_deploy:
 - zip -r dist.zip dist
 deploy:
   provider: releases
+  skip_cleanup: true
   api_key:
     secure: juql+N5mYI3fIP/L8bRtT6LdxHb5jULqkp1fX7ToCv6wMvczL2fB8HxGei6uVBC0iE1LrSgpeM8g5tt6e4bYA7FXetmRoOYE4ongDX/j7bJeLvrA6+mcII4Eb57Vl3ckgsycj4eFUBtz4kbNndQeduz6Bl+KnlGusVGFAC/Hl/sN/8pXOW+91kwqgDTZafAhfOnB1ggxZGAJJI+fnxYoBAlvaSSGE3vtEW3umlQXEKAKFyeppjJi1gkMGel9S/mhrihxh6Cp8Z14BvbVkWSFmMSudVXymyiKHEARXsX5Zx9TtcMGlB4VZjyblcPIFC2iTSXSWE7rKjf/Hmuo2WkxkqHPv6Xd9SfWTuwwJG2Ok5LlJr0au0O+wkw9hIWFu60d+BK6k0QO7WaDfkb52lOGS36Red3X10PVRMnQlOUeH1fT7D1emb/WOcOxUcOPBV1SzHNCss9YTauAcQlCPF9w3pazcGhUfmCkE+XP8ws2WfMvvMNPwYG9j5AFFBa+cL/OQKB5QXWz4z2QjSlksSOQVP2z6cdWhk4CSJM5gqVPu734f1bLDVN+tVmKV0lr438PCBqtPTBDD81EtDmtrJ1M6lZ58bKm4SUa16lZf/ZQgDaciOw3WbO2vgD6drWS7Pngl7gsViFy0/FDrLzwv7XscJ/wXcC2V/hKeL8DwgniSyE=
   file: dist.zip
   on:
     repo: starcatmeow/OnlineJudgeFE
+    all_branches: true
+    tags: true
