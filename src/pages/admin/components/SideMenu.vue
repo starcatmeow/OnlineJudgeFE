@@ -2,7 +2,7 @@
   <el-menu class="vertical_menu"
            :router="true" :default-active="currentPath">
     <div class="logo">
-      <a href="/"><img src="../../../assets/logo.svg" alt="Back to OJ"/></a>
+      <a href="/"><img src="../../../assets/logo.png" alt="Back to OJ"/></a>
     </div>
     <el-menu-item index="/"><i class="el-icon-fa-dashboard"></i>{{$t('m.Dashboard')}}</el-menu-item>
     <el-submenu v-if="isSuperAdmin" index="general">
@@ -62,10 +62,9 @@
       text-align: center;
       img {
         background-color: #fff;
-        border-radius: 50%;
         border: 3px solid #fff;
-        width: 75px;
-        height: 75px;
+        width: 100px;
+        height: 100px;
       }
     }
   }

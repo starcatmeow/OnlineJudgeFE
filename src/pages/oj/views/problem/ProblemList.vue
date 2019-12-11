@@ -135,7 +135,7 @@
             width: 70,
             render: (h, params) => {
               let t = params.row.difficulty
-              let color = 'blue'
+              let color = '#3399ff'
               if (t === 'Low') color = 'green'
               else if (t === 'High') color = 'yellow'
               return h('Tag', {

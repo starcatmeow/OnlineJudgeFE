@@ -1,6 +1,7 @@
 <template>
   <div id="header">
     <Menu theme="light" mode="horizontal" @on-select="handleRoute" :active-name="activeMenu" class="oj-menu">
+      <div class="logoimg"><img src="../../../assets/logo.png" alt="Jinyi OJ"/></div>
       <div class="logo"><span>{{website.website_name}}</span></div>
       <Menu-item name="/">
         <Icon type="home"></Icon>
@@ -143,11 +144,24 @@
     }
 
     .logo {
-      margin-left: 2%;
+      margin-left: 1%;
       margin-right: 2%;
       font-size: 20px;
       float: left;
       line-height: 60px;
+    }
+
+    .logoimg {
+      margin-left: 2%;
+      width: 60px;
+      height: 60px;
+      float: left;
+      img {
+        background-color: #fff;
+        border: 3px solid #fff;
+        width: 60px;
+        height: 60px;
+      }
     }
 
     .drop-menu {

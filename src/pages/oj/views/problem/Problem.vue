@@ -533,7 +533,7 @@
       font-size: 20px;
       font-weight: 400;
       margin: 25px 0 8px 0;
-      color: #3091f2;
+      color: #622b2f;
       .copy {
         padding-left: 8px;
       }
@@ -557,6 +557,8 @@
         align-self: stretch;
         border-style: solid;
         background: transparent;
+        border-width: 1px;
+        border-color: #f2f6fc;
       }
     }
   }
